@@ -63,6 +63,16 @@ def is_sequential(word, query):
     return [sequential, strict]
 
 
+def starts_with(word, query):
+    word = "".join(word)
+    query = "".join(query)
+
+    if word.startswith(query):
+        return True
+
+    return False
+
+
 def autoComplete(query):
     res = []
     count = 0
@@ -71,7 +81,7 @@ def autoComplete(query):
         query_array = list(query.lower().strip())
         if is_subset(word_array, query_array):
             sequential, strict = is_sequential(word_array, query_array)
-            if sequential and strict:
+            if sequential and strict and starts_with(word_array, query_array):
                 count += 1
                 res.append(word)
     return res
